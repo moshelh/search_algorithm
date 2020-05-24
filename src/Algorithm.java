@@ -12,13 +12,29 @@ public class Algorithm {
         //check if possible to do algorithm;
         if(possible(start,end)) {
             if (fileReader.algorithmName.equals("BFS")) {
+                long startTime = System.currentTimeMillis();
                 TilePuzzleNode node =BFS.bfs(start, end);
-                System.out.println(node.cost);
-                node.path=node.path.substring(1);
-                System.out.println(node.path);
-                System.out.println(BFS.counter);
+                double time =(double)(System.currentTimeMillis() - startTime)/1000 ;
+                System.out.println(time);
+                if(node != null) {
+                    System.out.println(node.cost);
+                    node.path = node.path.substring(1);
+                    System.out.println(node.path);
+                    System.out.println(BFS.counter);
+                }
             } else if (fileReader.algorithmName.equals("DFID")) {
-                DFID.dfid(start, end);
+                if(!DFID.dfid(start, end).equals("fail")) {
+                    System.out.println(DFID.dfid(start, end));
+                    System.out.println(DFID.counter);
+                    System.out.println(DFID.save.cost);
+                }
+            }else if(fileReader.algorithmName.equals("A*")){
+                TilePuzzleNode node = Astar.aStar(start,end);
+                if(node != null){
+                    System.out.println(node.path);
+                    System.out.println(node.cost);
+                    System.out.println(Astar.counter);
+                }
             }
         }
     }

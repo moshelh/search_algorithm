@@ -2,15 +2,23 @@ import javafx.util.Pair;
 
 import java.util.Arrays;
 
-public class TilePuzzleNode {
+public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
    public Tile[][] tailPuzzle ;
    public TilePuzzleNode father;
    public Pair<Integer,Integer> blankTile;
    public String path;
-   public int cost =0;
+   public int cost ;
+   public int function ;
+   public int iterationNum;
+   public int from;
+
     public TilePuzzleNode(int row, int column){
             tailPuzzle = new Tile[row][column];
             path="";
+            function = 0;
+            iterationNum=0;
+            cost=0;
+            from=0;
     }
     public TilePuzzleNode(TilePuzzleNode other){
         this.tailPuzzle= new Tile[other.tailPuzzle.length][other.tailPuzzle[0].length];
@@ -22,6 +30,8 @@ public class TilePuzzleNode {
         blankTile=new Pair<>(other.blankTile.getKey(),other.blankTile.getValue());
         path=other.path;
         cost=other.cost;
+        this.iterationNum=other.iterationNum;
+        from=0;
     }
     @Override
     public boolean equals(Object o) {
@@ -57,5 +67,12 @@ public class TilePuzzleNode {
             s+=Arrays.toString(tailPuzzle[i]);
         }
         return s;
+    }
+
+    @Override
+    public int compareTo(TilePuzzleNode o) {
+        if(this.function-o.function != 0) return this.function-o.function;
+        if(this.iterationNum - o.iterationNum != 0) return this.iterationNum - o.iterationNum;
+        return this.from-o.from;
     }
 }
