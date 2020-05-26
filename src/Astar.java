@@ -14,10 +14,10 @@ public class Astar {
         while (!queue.isEmpty()){
             TilePuzzleNode tempNode =queue.poll();
             open_list.remove(tempNode);
-            if(tempNode.equals(end)) return tempNode;
             ArrayList<TilePuzzleNode> arrayList = Operator.operator(tempNode);
             counter+=arrayList.size();
             for (TilePuzzleNode successor:arrayList) {
+                if(successor.equals(end)) return successor;
               successor.father=tempNode;
                if (open_list.containsKey(successor) && open_list.get(successor)<=successor.function) continue;
                if (close_list.containsKey(successor)&& close_list.get(successor)<=successor.function)

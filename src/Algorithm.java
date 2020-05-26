@@ -12,10 +12,7 @@ public class Algorithm {
         //check if possible to do algorithm;
         if(possible(start,end)) {
             if (fileReader.algorithmName.equals("BFS")) {
-                long startTime = System.currentTimeMillis();
                 TilePuzzleNode node =BFS.bfs(start, end);
-                double time =(double)(System.currentTimeMillis() - startTime)/1000 ;
-                System.out.println(time);
                 if(node != null) {
                     System.out.println(node.cost);
                     node.path = node.path.substring(1);
@@ -42,6 +39,17 @@ public class Algorithm {
                     System.out.println(node.cost);
                     System.out.println(IDASTAR.counter);
                 }
+            }else{
+                long startTime = System.currentTimeMillis();
+                String path = DFBnB.dfbNb(start,end);
+                TilePuzzleNode node = DFBnB.goul;
+                System.out.println(path);
+                System.out.println(node.cost);
+                System.out.println(DFBnB.counter);
+                double time =(double)(System.currentTimeMillis() - startTime)/1000 ;
+                System.out.println(time);
+
+
             }
         }
     }

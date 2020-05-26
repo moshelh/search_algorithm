@@ -20,7 +20,6 @@ public class IDASTAR {
                  }else{
                      node.markAsOut=true;
                      ArrayList<TilePuzzleNode> arrayList = Operator.operator(node);
-                     //counter = counter+arrayList.size();
                      for (TilePuzzleNode puzzleNode:arrayList) {
                          counter++;
                          puzzleNode.father = node;
