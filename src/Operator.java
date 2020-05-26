@@ -19,13 +19,7 @@ public class Operator {
                 }else{
                     temp.cost+=1;
                 }
-                int h=0;
-                for (int i = 0; i <=row; i++) {
-                    for (int j = 0; j <=col ; j++) {
-                        h+=HeuristicF.heuristicF(temp,i,j);
-                    }
-                }
-//                int h=HeuristicF.heuristicF(temp,rowBlank,colBlank);
+                int h=calculateH(temp);
                 temp.function = temp.cost+h;
                 temp.iterationNum++;
                 temp.from=1;
@@ -44,13 +38,7 @@ public class Operator {
                 }else{
                     temp.cost+=1;
                 }
-                int h=0;
-                for (int i = 0; i <=row; i++) {
-                    for (int j = 0; j <=col ; j++) {
-                        h+=HeuristicF.heuristicF(temp,i,j);
-                    }
-                }
-//                int h=HeuristicF.heuristicF(temp,rowBlank,colBlank);
+                int h=calculateH(temp);
                 temp.function = temp.cost+h;
                 temp.iterationNum++;
                 temp.from=2;
@@ -68,13 +56,7 @@ public class Operator {
                 }else{
                     temp.cost+=1;
                 }
-                int h=0;
-                for (int i = 0; i <=row; i++) {
-                    for (int j = 0; j <=col ; j++) {
-                        h+=HeuristicF.heuristicF(temp,i,j);
-                    }
-                }
-//                int h=HeuristicF.heuristicF(temp,rowBlank,colBlank);
+                int h=calculateH(temp);
                 temp.function = temp.cost+h;
                 temp.iterationNum++;
                 temp.from=3;
@@ -92,13 +74,7 @@ public class Operator {
                 }else{
                     temp.cost+=1;
                 }
-                int h=0;
-                for (int i = 0; i <=row; i++) {
-                    for (int j = 0; j <=col ; j++) {
-                        h+=HeuristicF.heuristicF(temp,i,j);
-                    }
-                }
-//                int h=HeuristicF.heuristicF(temp,rowBlank,colBlank);
+                int h=calculateH(temp);
                 temp.function = temp.cost+h;
                 temp.iterationNum++;
                 temp.from=4;
@@ -107,6 +83,16 @@ public class Operator {
         }
 
         return nodes;
+    }
+
+    public static int  calculateH(TilePuzzleNode node){
+        int h=0;
+        for (int i = 0; i <node.tailPuzzle.length; i++) {
+            for (int j = 0; j <node.tailPuzzle[0].length; j++) {
+                h+=HeuristicF.heuristicF(node,i,j);
+            }
+        }
+        return h;
     }
 
 }

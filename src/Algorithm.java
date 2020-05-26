@@ -35,6 +35,13 @@ public class Algorithm {
                     System.out.println(node.cost);
                     System.out.println(Astar.counter);
                 }
+            }else if(fileReader.algorithmName.equals("IDA*")){
+                TilePuzzleNode node = IDASTAR.idastar(start,end);
+                if (node != null){
+                    System.out.println(node.path);
+                    System.out.println(node.cost);
+                    System.out.println(IDASTAR.counter);
+                }
             }
         }
     }

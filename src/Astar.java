@@ -1,7 +1,7 @@
 import java.util.*;
 
 public class Astar {
-    public  static int counter=0;
+    public  static int counter=1;
     public static TilePuzzleNode aStar(TilePuzzleNode start,TilePuzzleNode end){
         PriorityQueue<TilePuzzleNode> queue= new PriorityQueue<>();
         Hashtable<TilePuzzleNode,Integer> open_list = new Hashtable<>();

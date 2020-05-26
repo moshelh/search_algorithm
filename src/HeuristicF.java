@@ -12,6 +12,6 @@ public class HeuristicF {
 
             return (Math.abs(i - expI) + Math.abs(j - expJ))*valOfColor;
         }
-        return (Math.abs(i - n.tailPuzzle.length-1) + Math.abs(j -n.tailPuzzle[0].length-1));
+        return 0;
     }
 }

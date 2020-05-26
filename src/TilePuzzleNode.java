@@ -11,6 +11,7 @@ public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
    public int function ;
    public int iterationNum;
    public int from;
+   public boolean markAsOut;
 
     public TilePuzzleNode(int row, int column){
             tailPuzzle = new Tile[row][column];
