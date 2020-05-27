@@ -13,7 +13,7 @@ public class BFS {
             TilePuzzleNode node = queue.poll();
             queueHash.remove(node);
             nodes.add(node);
-            ArrayList<TilePuzzleNode> arrayList = Operator.operator(node);
+            ArrayList<TilePuzzleNode> arrayList = Operator.operator(node,"all");
 
             for (TilePuzzleNode puzzleNode:arrayList) {
                 counter++;

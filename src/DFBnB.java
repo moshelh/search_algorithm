@@ -16,31 +16,31 @@ public class DFBnB {
                 open_list.remove(node);
             else {
                 node.markAsOut=true;
-                ArrayList<TilePuzzleNode> arrayList = Operator.operator(node);
+                stack.push(node);
+                ArrayList<TilePuzzleNode> arrayList = Operator.operator(node,"all");
                 arrayList.sort(TilePuzzleNode::compareTo);
                 counter+=arrayList.size();
                 for (int i = 0; i < arrayList.size(); i++) {
-                    TilePuzzleNode temp= arrayList.get(i);
-                    temp.father = node;
-                    if(temp.function>=t){
+                    arrayList.get(i).father = node;
+                    if(arrayList.get(i).function>=t){
                         arrayList.subList(i,arrayList.size()).clear();
                         break;
                     }
-                    if (open_list.contains(temp) && open_list.contains(temp.markAsOut)){
-                        arrayList.remove(i);
+                    if (open_list.containsKey(arrayList.get(i)) && open_list.get(arrayList.get(i)).markAsOut  ){
+                        arrayList.remove(arrayList.get(i));
                         i--;
-                    }else if (open_list.contains(temp) &&! (open_list.contains(temp))){
-                        if(open_list.get(temp).function<=temp.function){
+                    }else if (open_list.containsKey(arrayList.get(i)) &&! (open_list.get(arrayList.get(i)).markAsOut)){
+                        if(open_list.get(arrayList.get(i)).function<=arrayList.get(i).function){
                             arrayList.remove(i);
                             i--;
                         }else{
-                            open_list.remove(temp);
-                            stack.remove(temp);
+                            open_list.remove(arrayList.get(i));
+                            stack.remove(arrayList.get(i));
                         }
-                    }else if(temp.equals(end)){
-                        t=temp.function;
-                        result = temp.path;
-                        goul = temp;
+                    }else if(arrayList.get(i).equals(end)){
+                        t=arrayList.get(i).function;
+                        result = arrayList.get(i).path;
+                        goul = arrayList.get(i);
                         arrayList.subList(i,arrayList.size()).clear();
                         break;
                     }

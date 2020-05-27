@@ -49,7 +49,13 @@ public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
 
     @Override
     public int hashCode() {
-        return Arrays.hashCode(tailPuzzle);
+        int hashCode=0;
+        for (int i = 0; i <tailPuzzle.length ; i++) {
+            for (int j = 0; j < tailPuzzle[i].length; j++) {
+                hashCode+=Math.pow(tailPuzzle[i][j].val*(j+1),2);
+            }
+        }
+        return hashCode;
     }
 
     public void swapTile(int i,int j){
@@ -72,8 +78,8 @@ public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
 
     @Override
     public int compareTo(TilePuzzleNode o) {
-        if(this.function-o.function != 0) return this.function-o.function;
-        if(this.iterationNum - o.iterationNum != 0) return this.iterationNum - o.iterationNum;
-        return this.from-o.from;
+        if(this.function-o.function != 0) return Integer.compare(this.function,o.function);
+        if(this.iterationNum - o.iterationNum != 0) return Integer.compare(this.iterationNum , o.iterationNum);
+        return Integer.compare(this.from,o.from);
     }
 }

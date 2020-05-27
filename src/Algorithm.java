@@ -20,8 +20,9 @@ public class Algorithm {
                     System.out.println(BFS.counter);
                 }
             } else if (fileReader.algorithmName.equals("DFID")) {
-                if(!DFID.dfid(start, end).equals("fail")) {
-                    System.out.println(DFID.dfid(start, end));
+                String re=DFID.dfid(start, end);
+                if(!re.equals("fail")) {
+                    System.out.println(re);
                     System.out.println(DFID.counter);
                     System.out.println(DFID.save.cost);
                 }
@@ -52,6 +53,7 @@ public class Algorithm {
 
             }
         }
+        System.out.println("");
     }
 
     private boolean possible(TilePuzzleNode start, TilePuzzleNode end) {
