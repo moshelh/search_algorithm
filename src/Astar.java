@@ -2,8 +2,9 @@ import java.util.*;
 
 public class Astar {
     public  static int counter=1;
+    public static int cost=0;
     public static String[] order = {"left","up","right","down"};
-    public static TilePuzzleNode aStar(TilePuzzleNode start,TilePuzzleNode end){
+    public static TilePuzzleNode aStar(TilePuzzleNode start, TilePuzzleNode end, boolean withOpen){
         PriorityQueue<TilePuzzleNode> queue= new PriorityQueue<>();
         Hashtable<TilePuzzleNode,Integer> open_list = new Hashtable<>();
         Hashtable<TilePuzzleNode,Integer> close_list = new Hashtable<>();
@@ -12,7 +13,15 @@ public class Astar {
         open_list.put(start,0);
         while (!queue.isEmpty()){
             TilePuzzleNode tempNode =queue.poll();
+            if(withOpen){
+                System.out.println("-------------------------------------");
+                for (Map.Entry<TilePuzzleNode,Integer> puzzleNode:open_list.entrySet()) {
+                    System.out.println(puzzleNode.getKey());
+                }
+                System.out.println("-------------------------------------");
+            }
             open_list.remove(tempNode);
+            cost = tempNode.cost;
             if(tempNode.equals(end)) return tempNode;
             close_list.put(tempNode,tempNode.function);
             for (String order:order) {

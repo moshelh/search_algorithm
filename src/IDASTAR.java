@@ -1,12 +1,10 @@
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.Hashtable;
-import java.util.Stack;
+import java.util.*;
 
 public class IDASTAR {
     public static int counter=1;
+    public static int cost = 0;
     public static String[] order = {"left","up","right","down"};
-    public static TilePuzzleNode idastar(TilePuzzleNode start,TilePuzzleNode end){
+    public static TilePuzzleNode idastar(TilePuzzleNode start, TilePuzzleNode end, boolean withOpen){
         Stack<TilePuzzleNode> stack = new Stack<>();
         Hashtable<TilePuzzleNode,TilePuzzleNode> open_list = new Hashtable<>();
         int t = Operator.calculateH(start);
@@ -19,6 +17,11 @@ public class IDASTAR {
             while (!stack.isEmpty()){
                 TilePuzzleNode node = stack.pop();
                  if(node.markAsOut){
+                     if(withOpen) {
+                         for (Map.Entry<TilePuzzleNode, TilePuzzleNode> puzzleNode : open_list.entrySet()) {
+                             System.out.println(puzzleNode.getKey());
+                         }
+                     }
                      open_list.remove(node);
                  }else{
                      node.markAsOut=true;
@@ -43,6 +46,7 @@ public class IDASTAR {
                                      continue;
                                  }
                              }
+                             cost = puzzleNode.cost;
                              if (puzzleNode.equals(end)) return puzzleNode;
                              stack.push(puzzleNode);
                              open_list.put(puzzleNode, puzzleNode);

@@ -1,11 +1,10 @@
-import javafx.util.Pair;
 
 import java.util.Arrays;
 
 public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
    public Tile[][] tailPuzzle ;
    public TilePuzzleNode father;
-   public Pair<Integer,Integer> blankTile;
+   public int[] blankTile;
    public String path;
    public int cost ;
    public int function ;
@@ -20,6 +19,7 @@ public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
             iterationNum=0;
             cost=0;
             from=0;
+            blankTile = new int[2];
     }
     public TilePuzzleNode(TilePuzzleNode other){
         this.tailPuzzle= new Tile[other.tailPuzzle.length][other.tailPuzzle[0].length];
@@ -28,7 +28,9 @@ public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
                tailPuzzle[i][j]=new Tile(other.tailPuzzle[i][j]);
             }
         }
-        blankTile=new Pair<>(other.blankTile.getKey(),other.blankTile.getValue());
+        blankTile = new int[2];
+        blankTile[0] = other.blankTile[0];
+        blankTile[1] = other.blankTile[1];
         path=other.path;
         cost=other.cost;
         this.iterationNum=other.iterationNum;
@@ -58,22 +60,28 @@ public class TilePuzzleNode implements Comparable<TilePuzzleNode> {
         return hashCode;
     }
 
+    /**
+     * This function switch between empty tail and given tail.
+     * @param i column
+     * @param j row
+     */
     public void swapTile(int i,int j){
         Tile tile = new Tile(tailPuzzle[i][j]);
         tailPuzzle[i][j].color="white";
         tailPuzzle[i][j].val =-1;
-        tailPuzzle[blankTile.getKey()][blankTile.getValue()].color=tile.color;
-        tailPuzzle[blankTile.getKey()][blankTile.getValue()].val=tile.val;
-        blankTile=new Pair<>(i,j);
+        tailPuzzle[blankTile[0]][blankTile[1]].color=tile.color;
+        tailPuzzle[blankTile[0]][blankTile[1]].val=tile.val;
+        blankTile[0]=i;
+        blankTile[1]=j;
     }
 
     @Override
     public String toString() {
-        String s="";
+        StringBuilder s= new StringBuilder();
         for (int i = 0; i < tailPuzzle.length; i++) {
-            s+=Arrays.toString(tailPuzzle[i]);
+            s.append(Arrays.toString(tailPuzzle[i]));
         }
-        return s;
+        return s.toString();
     }
 
     @Override

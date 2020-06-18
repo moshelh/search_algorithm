@@ -3,13 +3,14 @@ import java.util.*;
 public class DFBnB {
     public static int counter=1;
     public static TilePuzzleNode goul;
-    public static String dfbNb(TilePuzzleNode start,TilePuzzleNode end){
+    public static int cost=0;
+    public static String dfbNb(TilePuzzleNode start, TilePuzzleNode end, boolean withOpen,int n){
         Stack<TilePuzzleNode> stack = new Stack<>();
         Hashtable<TilePuzzleNode,TilePuzzleNode> open_list = new Hashtable<>();
         stack.push(start);
         open_list.put(start,start);
         String result ="";
-        int t =Integer.MAX_VALUE;
+        int t =n;
         while (!stack.isEmpty()){
             TilePuzzleNode node = stack.pop();
             if(node.markAsOut)
@@ -22,6 +23,7 @@ public class DFBnB {
                 counter+=arrayList.size();
                 for (int i = 0; i < arrayList.size(); i++) {
                     arrayList.get(i).father = node;
+                    cost = arrayList.get(i).cost;
                     if(arrayList.get(i).function>=t){
                         arrayList.subList(i,arrayList.size()).clear();
                         break;
@@ -34,6 +36,11 @@ public class DFBnB {
                             arrayList.remove(i);
                             i--;
                         }else{
+                            if(withOpen) {
+                                for (Map.Entry<TilePuzzleNode, TilePuzzleNode> puzzleNode : open_list.entrySet()) {
+                                    System.out.println(puzzleNode.getKey());
+                                }
+                            }
                             open_list.remove(arrayList.get(i));
                             stack.remove(arrayList.get(i));
                         }

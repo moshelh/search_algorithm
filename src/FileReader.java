@@ -1,5 +1,3 @@
-import javafx.util.Pair;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -7,12 +5,13 @@ import java.util.List;
 import java.util.regex.Pattern;
 
 public class FileReader {
-    String algorithmName;
-    boolean withTime;
-    boolean withOpen;
-    ArrayList<Integer> black;
-    ArrayList<Integer> red;
-    String[] num;
+    public String algorithmName;
+    public boolean withTime;
+    public boolean withOpen;
+    public ArrayList<Integer> black;
+    public ArrayList<Integer> red;
+    public String[] num;
+    public int numOfTail;
 
     public FileReader() {
         black = new ArrayList<>();
@@ -50,7 +49,8 @@ public class FileReader {
     }
 
     public TilePuzzleNode createStartNode() throws IOException {
-        List<String> text = fileReader("E:\\search_project\\src\\input.txt");
+        String path = "input.txt";
+        List<String> text = fileReader(path);
         String arr[] = text.get(0).trim().split(Pattern.quote("\\n"));
         this.algorithmName = arr[0];
         if (arr[1].equals("with time")) {
@@ -60,6 +60,7 @@ public class FileReader {
             withOpen = true;
         }
         this.num = arr[3].split("x");
+        numOfTail = Integer.parseInt(num[0]) * Integer.parseInt(num[1]) ;
         TilePuzzleNode tailPuzzle = new TilePuzzleNode(Integer.parseInt(num[0]), Integer.parseInt(num[1]));
         int endBlack = arr[4].indexOf(':');
         arr[4] = arr[4].substring(endBlack + 1);
@@ -70,6 +71,7 @@ public class FileReader {
                 black.add(Integer.parseInt(s));
             }
         }
+        numOfTail -=black.size();
         int endRed = arr[5].indexOf(':');
         arr[5] = arr[5].substring(endRed + 1);
         arr[5] = arr[5].replaceAll(" ", "");
@@ -90,7 +92,8 @@ public class FileReader {
                 if (num.equals("_")) {
                     curNum = -1;
                     tailPuzzle.tailPuzzle[row][col] = new Tile("white", curNum);
-                    tailPuzzle.blankTile=new Pair<>(row,col);
+                    tailPuzzle.blankTile[0]=row;
+                    tailPuzzle.blankTile[1]=col;
                 } else {
                     curNum = Integer.parseInt(num);
                     if (red.contains(curNum)) {
@@ -127,14 +130,4 @@ public class FileReader {
     }
 
 
-//    public static void main(String[] args) {
-//        try {
-//            FileReader fileReader = new FileReader();
-//
-//            TilePuzzleNode tailPuzzle1 = fileReader.createStartNode();
-//            TilePuzzleNode tailPuzzle = fileReader.createEndNode();
-//        }catch (Exception e){
-//
-//        }
-//    }
 }

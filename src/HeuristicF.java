@@ -1,6 +1,13 @@
-import javafx.util.Pair;
+
 
 public class HeuristicF {
+    /**
+     *
+     * @param n current node
+     * @param i tail column potion
+     * @param j tail row potion
+     * @return calculate the M.D for this tail
+     */
     public static int heuristicF(TilePuzzleNode n,int i ,int j){
         int val = n.tailPuzzle[i][j].val;
         if(val != -1) {
